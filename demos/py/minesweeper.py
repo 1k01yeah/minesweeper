@@ -28,7 +28,7 @@ def init_panel():
     martrix = [[0 for x in range(panel_width)][:] for y in range(panel_height)]
     mask = [['-' for x in range(panel_width)][:] for y in range(panel_height)]
     for i in zip(*(s(range(bombs),panel_width - 1),s(range(bombs),panel_height - 1))):
-        martrix[i] = 'x'
+        martrix[i[0]][i[1]] = 'x'
     for r in range(len(martrix)):
         row = martrix[r]
         for c in range(len(row)):
@@ -77,6 +77,8 @@ def mark(loc):
     elif mask[loc[0]][loc[1]] == '#':
         mask[loc[0]][loc[1]] = '-'
         print 'unmarked', loc[0], loc[1]
+    else:
+        print 'Already shown cell is unmarkable'
     draw(mask)
 
 def check_win():
