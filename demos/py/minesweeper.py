@@ -1,5 +1,5 @@
 import sys, re
-from random import randint
+from random import sample as s
 
 pt_relations = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
 panel_height = 9
@@ -27,10 +27,8 @@ def init_panel():
     global panel_width, panel_height, bombs, martrix, mask
     martrix = [[0 for x in range(panel_width)][:] for y in range(panel_height)]
     mask = [['-' for x in range(panel_width)][:] for y in range(panel_height)]
-    for i in range(bombs):
-        x = randint(0, panel_width - 1)
-        y = randint(0, panel_height - 1)
-        martrix[y][x] = 'x'
+    for i in zip(*(s(range(bombs),panel_width - 1),s(range(bombs),panel_height - 1))):
+        martrix[i] = 'x'
     for r in range(len(martrix)):
         row = martrix[r]
         for c in range(len(row)):
@@ -103,7 +101,7 @@ def usage():
     print "          do this on marked cell means unmark \n"
     print "          'mark 88' for example\n"
     print "     type 'stop' (RET) or C-c to quit the program\n"
-    print "     NOTICE THAT:    X :[0,{0})  ; Y:[0,{1}).".format(panel_width,panel_height)
+    print "     NOTICE THAT:    X :[0,{0})  ; Y:[0,{1}).".format(panel_width-1,panel_height-1)
     print
 
 if __name__ == "__main__":
